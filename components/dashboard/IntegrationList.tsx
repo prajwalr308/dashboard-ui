@@ -34,7 +34,7 @@ const integrations = [
 
 export default function IntegrationList() {
   return (
-    <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm col-span-2">
+    <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm lg:col-span-2">
       <div className="flex justify-between items-center mb-6">
          <div className="flex items-center gap-2 text-gray-500">
             <LinkIcon className="w-4 h-4" />

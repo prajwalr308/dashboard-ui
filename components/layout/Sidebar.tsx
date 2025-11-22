@@ -15,7 +15,8 @@ import {
   Shield, 
   HelpCircle,
   ChevronDown,
-  Boxes
+  Boxes,
+  X
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -61,20 +62,30 @@ const menuItems: MenuSection[] = [
   },
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 bg-white border-r border-gray-100 h-screen flex flex-col sticky top-0">
+    <aside className={cn(
+      "fixed inset-y-0 left-0 z-30 w-64 bg-white border-r border-gray-100 h-screen flex flex-col transition-transform duration-300 ease-in-out md:translate-x-0 md:static",
+      isOpen ? "translate-x-0" : "-translate-x-full"
+    )}>
       {/* Logo */}
-      <div className="p-6 flex items-center gap-2">
-        <div className="bg-indigo-600 p-1.5 rounded-lg">
-            <Boxes className="w-5 h-5 text-white" />
+      <div className="p-6 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+            <div className="bg-indigo-600 p-1.5 rounded-lg">
+                <Boxes className="w-5 h-5 text-white" />
+            </div>
+            <span className="text-xl font-bold text-slate-800">Uncia</span>
         </div>
-        <span className="text-xl font-bold text-slate-800">Uncia</span>
-        <div className="ml-auto text-gray-300">
-             {/* Collapse icon placeholder or similar from image */}
-        </div>
+        <button onClick={onClose} className="md:hidden text-gray-500 hover:text-gray-700">
+            <X className="w-5 h-5" />
+        </button>
       </div>
 
       {/* Navigation */}
@@ -91,6 +102,11 @@ export default function Sidebar() {
                   <li key={item.name}>
                     <Link
                       href={item.href}
+                      onClick={() => {
+                        if (window.innerWidth < 768) {
+                          onClose();
+                        }
+                      }}
                       className={cn(
                         "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
                         isActive

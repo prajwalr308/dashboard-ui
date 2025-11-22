@@ -11,7 +11,7 @@ const data = [
 
 export default function SalesOverviewChart() {
   return (
-    <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm col-span-2">
+    <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm lg:col-span-2">
       <div className="flex justify-between items-start mb-6">
         <div>
             <div className="flex items-center gap-2 mb-2">
